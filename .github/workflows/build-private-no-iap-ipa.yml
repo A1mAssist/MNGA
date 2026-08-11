@@ -24,14 +24,15 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set up mise tools
+        uses: jdx/mise-action@v4
+
       - name: Set up Rust target
         run: rustup target add aarch64-apple-ios
 
       - name: Install prerequisites
         run: |
           brew install swift-protobuf
-          brew tap tuist/tuist
-          brew install --formula tuist@4.131.1
 
       - name: Build Rust logic framework
         run: make logic-deploy
