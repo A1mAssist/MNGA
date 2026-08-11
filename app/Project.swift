@@ -74,6 +74,7 @@ let project = Project(
                     "ENABLE_BITCODE": "NO",
                     "SWIFT_OBJC_BRIDGING_HEADER": "../out/include/bindings.h",
                     "LIBRARY_SEARCH_PATHS": "../out/libs/**",
+                    "OTHER_SWIFT_FLAGS": "$(inherited) -D MNGA_PRIVATE_NO_IAP",
                     "DEVELOPMENT_TEAM": "87F9J2DF6R",
                     "SUPPORTS_MACCATALYST": "NO",
                     "SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD": "YES",
