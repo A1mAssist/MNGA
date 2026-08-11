@@ -81,25 +81,41 @@ class PaywallModel: ObservableObject {
   @Published var debugOverride: UnlockStatus? = nil
 
   var status: UnlockStatus {
+    #if MNGA_PRIVATE_NO_IAP
+      .paid
+    #else
     #if DEBUG
       debugOverride ?? cachedStatus
     #else
       cachedStatus
+    #endif
     #endif
   }
 
   @Published var isStatusTrusted = false
 
   var trustedStatus: UnlockStatus? {
+    #if MNGA_PRIVATE_NO_IAP
+      .paid
+    #else
     isStatusTrusted ? status : nil
+    #endif
   }
 
   var isUnlocked: Bool {
+    #if MNGA_PRIVATE_NO_IAP
+      true
+    #else
     status.isUnlocked
+    #endif
   }
 
   init() {
+    #if MNGA_PRIVATE_NO_IAP
+      logger.info("MNGA private no-IAP build enabled")
+    #else
     Task.detached { await self.listenForTransactions() }
+    #endif
   }
 
   private func listenForTransactions() async {
