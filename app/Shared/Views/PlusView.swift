@@ -109,8 +109,10 @@ struct PlusView: View {
     }
     .background(Color(.systemGroupedBackground).ignoresSafeArea())
     .toolbar { toolbar }
+    #if !MNGA_PRIVATE_NO_IAP
     .offerCodeRedemption(isPresented: $isRedeeming) { result in Task { await redeemCompletion(result) } }
     .storeProductsTask(for: Constants.Plus.ids) { allProducts = $0.products }
+    #endif
     .sheet(isPresented: $isShowingFeatures) { PlusFeaturesView() }
   }
 
